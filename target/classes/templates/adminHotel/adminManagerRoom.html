@@ -1,0 +1,374 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>
+        Room List
+    </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <script>
+        // JavaScript functions for CRUD operations, sorting, filtering, and searching
+        function addRoom() {
+            // Add room logic
+            alert('Add Room functionality');
+        }
+
+        function editRoom(roomNo) {
+            // Edit room logic
+            alert('Edit Room ' + roomNo);
+        }
+
+        function deleteRoom(roomNo) {
+            // Delete room logic
+            alert('Delete Room ' + roomNo);
+        }
+
+        function sortTable(column) {
+            // Sort table logic
+            alert('Sort by ' + column);
+        }
+
+        function filterTable() {
+            // Filter table logic
+            alert('Filter functionality');
+        }
+
+        function searchTable() {
+            // Search table logic
+            alert('Search functionality');
+        }
+
+        function toggleSelectAll() {
+            const checkboxes = document.querySelectorAll('.room-checkbox');
+            const selectAllCheckbox = document.getElementById('select-all');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
+        }
+
+        function paginate(page) {
+            // Pagination logic
+            alert('Go to page ' + page);
+        }
+    </script>
+</head>
+<body class="bg-gray-100">
+<div class="flex">
+    <!-- Sidebar -->
+    <div class="w-64 bg-gray-900 text-white h-screen">
+        <div class="flex items-center justify-center h-16 border-b border-gray-800">
+            <img alt="Logo" class="mr-2" height="40" src="https://placehold.co/40x40" width="40"/>
+            <span class="text-xl font-semibold">
+                ADMIN
+            </span>
+        </div>
+        <nav class="mt-10">
+            <a class="flex items-center py-2 px-6 text-gray-400 hover:text-white" href="#">
+                <i class="fas fa-tachometer-alt mr-3"></i>
+                Dashboard
+            </a>
+            <a class="flex items-center py-2 px-6 text-gray-400 hover:text-white" href="#">
+                <i class="fas fa-calendar-alt mr-3"></i>
+                Bookings
+            </a>
+            <div class="mt-2">
+                <a class="flex items-center py-2 px-6 text-white bg-gray-800" href="#">
+                    <i class="fas fa-home mr-3"></i>
+                    Room
+                </a>
+                <div class="ml-6">
+                    <a class="block py-2 px-6 text-gray-400 hover:text-white" href="#">
+                        All Rooms
+                    </a>
+                    <a class="block py-2 px-6 text-gray-400 hover:text-white" href="#">
+                        Room Types
+                    </a>
+                </div>
+            </div>
+
+        </nav>
+
+    </div>
+    <!-- Main Content -->
+    <div class="flex-1 p-6">
+        <div class="flex justify-between items-center mb-6">
+            <div class="text-gray-600">
+
+            </div>
+            <div class="flex items-center">
+                <img alt="Flag" class="mr-2" height="20" src="https://placehold.co/20x20" width="20"/>
+                <div class="mr-4">
+                    <span class="text-gray-600">
+                        Administrator
+                    </span>
+                    <span class="block text-gray-400">
+                        Hieu
+                    </span>
+                </div>
+                <i class="fas fa-bell text-gray-600"></i>
+            </div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-semibold text-gray-800">
+                    Room List
+                </h2>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg" onclick="addRoom()">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            <p class="text-gray-600 mb-6">
+                Here is our verious rooms.
+            </p>
+            <div class="flex items-center mb-4">
+                <select class="border border-gray-300 rounded-lg px-4 py-2 mr-2" onchange="filterTable()">
+                    <option>
+                        Bulk Action
+                    </option>
+                    <option>
+                        Siuuu
+                    </option>
+                    <option>
+                        Nânna
+                    </option>
+                </select>
+                <button class="bg-gray-300 text-gray-600 px-4 py-2 rounded-lg" onclick="filterTable()">
+                    Apply
+                </button>
+                <input class="border border-gray-300 rounded-lg px-4 py-2 ml-4" onkeyup="searchTable()" placeholder="Search..."/>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white">
+                    <thead>
+                    <tr>
+                        <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-600">
+                            <input id="select-all" onclick="toggleSelectAll()" type="checkbox"/>
+                        </th>
+                        <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-600 cursor-pointer" onclick="sortTable('roomNo')">
+                            Room No.
+                        </th>
+                        <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-600 cursor-pointer" onclick="sortTable('roomType')">
+                            Room Type
+                        </th>
+                        <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-600 cursor-pointer" onclick="sortTable('acNonAc')">
+                            AC/Non AC
+                        </th>
+                        <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-600 cursor-pointer" onclick="sortTable('meal')">
+                            Meal
+                        </th>
+                        <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-600 cursor-pointer" onclick="sortTable('bedCapacity')">
+                            Bed Capacity
+                        </th>
+                        <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-600 cursor-pointer" onclick="sortTable('rent')">
+                            Rent
+                        </th>
+                        <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-600 cursor-pointer" onclick="sortTable('status')">
+                            Status
+                        </th>
+                        <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-600">
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            <input class="room-checkbox" type="checkbox"/>
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200 text-blue-500">
+                            101
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            Single
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            AC
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            None
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            1
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            32.00 USD
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200 text-blue-500">
+                            Booked
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200 text-right">
+                            <i class="fas fa-edit text-green-500 cursor-pointer" onclick="editRoom(101)"></i>
+                            <i class="fas fa-trash text-red-500 cursor-pointer ml-4" onclick="deleteRoom(101)"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            <input class="room-checkbox" type="checkbox"/>
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200 text-blue-500">
+                            102
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            Single
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            AC
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            Breakfast
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            1
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            35.00 USD
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200 text-yellow-500">
+                            Pending
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200 text-right">
+                            <i class="fas fa-edit text-green-500 cursor-pointer" onclick="editRoom(102)"></i>
+                            <i class="fas fa-trash text-red-500 cursor-pointer ml-4" onclick="deleteRoom(102)"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            <input class="room-checkbox" type="checkbox"/>
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200 text-blue-500">
+                            103
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            Double
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            None
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            Dinner
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            2
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            44.99 USD
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200 text-green-500">
+                            Open
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200 text-right">
+                            <i class="fas fa-edit text-green-500 cursor-pointer" onclick="editRoom(103)"></i>
+                            <i class="fas fa-trash text-red-500 cursor-pointer ml-4" onclick="deleteRoom(103)"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            <input class="room-checkbox" type="checkbox"/>
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200 text-blue-500">
+                            104
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            Double
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            AC
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            Two
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            2
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            48.99 USD
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200 text-green-500">
+                            Open
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200 text-right">
+                            <i class="fas fa-edit text-green-500 cursor-pointer" onclick="editRoom(104)"></i>
+                            <i class="fas fa-trash text-red-500 cursor-pointer ml-4" onclick="deleteRoom(104)"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            <input class="room-checkbox" type="checkbox"/>
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200 text-blue-500">
+                            105
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            Delux
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            None
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            Lunch
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            2
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            53.99 USD
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200 text-blue-500">
+                            Booked
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200 text-right">
+                            <i class="fas fa-edit text-green-500 cursor-pointer" onclick="editRoom(105)"></i>
+                            <i class="fas fa-trash text-red-500 cursor-pointer ml-4" onclick="deleteRoom(105)"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            <input class="room-checkbox" type="checkbox"/>
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200 text-blue-500">
+                            201
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            Super Delux
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            AC
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            All
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            3
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200">
+                            68.99 USD
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200 text-blue-500">
+                            Booked
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200 text-right">
+                            <i class="fas fa-edit text-green-500 cursor-pointer" onclick="editRoom(201)"></i>
+                            <i class="fas fa-trash text-red-500 cursor-pointer ml-4" onclick="deleteRoom(201)"></i>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="flex justify-between items-center mt-4">
+                <div class="text-gray-600">
+                    Showing 1 to 6 of 6 entries
+                </div>
+                <div class="flex">
+                    <button class="bg-gray-300 text-gray-600 px-4 py-2 rounded-lg mr-2" onclick="paginate(1)">
+                        1
+                    </button>
+                    <button class="bg-gray-300 text-gray-600 px-4 py-2 rounded-lg" onclick="paginate(2)">
+                        2
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
