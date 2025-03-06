@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thống kê doanh thu</title>
+    <style>
+      :root {
+        --primary-color: #007bff;
+        --secondary-color: #00c3ff;
+        --bg-color: #f4f4f4;
+        --text-color: #333;
+        --sidebar-bg: linear-gradient(135deg, #2c3e50, #34495e);
+        --card-bg: white;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--bg-color);
+        display: flex;
+      }
+
+      .sidebar {
+        width: 250px;
+        background: var(--sidebar-bg);
+        color: white;
+        height: 100vh;
+        position: fixed;
+        padding: 20px;
+        transition: width 0.3s ease-in-out;
+        overflow: hidden;
+      }
+
+      .sidebar.collapsed {
+        width: 70px;
+      }
+
+      .menu-item {
+        padding: 15px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: background 0.3s, transform 0.2s;
+        border-radius: 5px;
+      }
+
+      .menu-item:hover,
+      .menu-item.active {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(1.05);
+      }
+
+      .toggle-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: white;
+        color: var(--text-color);
+        border: none;
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 5px;
+      }
+
+      .main-content {
+        margin-left: 270px;
+        padding: 20px;
+        width: calc(100% - 270px);
+        transition: margin-left 0.3s ease-in-out;
+      }
+
+      .collapsed + .main-content {
+        margin-left: 90px;
+        width: calc(100% - 90px);
+      }
+
+      .filters {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .cards {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .card {
+        background: var(--card-bg);
+        color: var(--text-color);
+        padding: 20px;
+        flex: 1;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        min-width: 250px;
+        transition: transform 0.3s;
+        position: relative;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+      }
+
+      .charts {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin-top: 20px;
+      }
+
+      .chart {
+        width: 45%;
+        min-width: 300px;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="sidebar">
+      <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+      <h2>Admin Panel</h2>
+      <div class="menu-item" onclick="setActive(this)">🏠 Dashboard</div>
+      <div class="menu-item" onclick="setActive(this)">📊 Rooms</div>
+      <div class="menu-item" onclick="setActive(this)">👤 Users</div>
+      <div class="menu-item" onclick="setActive(this)">📅 Bookings</div>
+      <div class="menu-item active" onclick="setActive(this)">
+        📈 Statistics
+      </div>
+    </div>
+
+    <div class="main-content">
+      <h1>📊 Bảng Thống Kê Doanh Thu</h1>
+      <div class="filters">
+        <label for="timeFilter">Chọn khoảng thời gian:</label>
+        <select id="timeFilter" onchange="fetchData()">
+          <option value="month">Tháng này</option>
+          <option value="quarter">Quý này</option>
+          <option value="year">Năm nay</option>
+        </select>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h2>💰 Tổng Doanh Thu</h2>
+          <p id="revenue">$50,000</p>
+        </div>
+        <div class="card">
+          <h2>🏨 Tổng Đơn Đặt</h2>
+          <p id="bookings">1200</p>
+        </div>
+        <div class="card">
+          <h2>🏆 Phòng Phổ Biến</h2>
+          <p id="popularRoom">Suite VIP</p>
+        </div>
+      </div>
+
+      <div class="charts">
+        <div class="chart">
+          <h2>📈 Doanh Thu Theo Tháng</h2>
+          <canvas id="revenueChart"></canvas>
+        </div>
+        <div class="chart">
+          <h2>🏨 Tỷ Lệ Đặt Phòng</h2>
+          <canvas id="bookingChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function toggleSidebar() {
+        document.querySelector(".sidebar").classList.toggle("collapsed");
+        document.querySelector(".main-content").classList.toggle("collapsed");
+      }
+
+      function setActive(el) {
+        document
+          .querySelectorAll(".menu-item")
+          .forEach((item) => item.classList.remove("active"));
+        el.classList.add("active");
+      }
+
+      function renderCharts() {
+        const revenueCtx = document
+          .getElementById("revenueChart")
+          .getContext("2d");
+        new Chart(revenueCtx, {
+          type: "bar",
+          data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+            datasets: [
+              {
+                label: "Doanh thu ($)",
+                data: [5000, 7000, 8000, 6500, 7200, 9000],
+                backgroundColor: "blue",
+              },
+            ],
+          },
+        });
+
+        const bookingCtx = document
+          .getElementById("bookingChart")
+          .getContext("2d");
+        new Chart(bookingCtx, {
+          type: "pie",
+          data: {
+            labels: ["Suite", "Deluxe", "Standard", "Economy"],
+            datasets: [
+              {
+                label: "Tỷ lệ đặt phòng",
+                data: [40, 30, 20, 10],
+                backgroundColor: ["red", "blue", "green", "yellow"],
+              },
+            ],
+          },
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", renderCharts);
+    </script>
+  </body>
+</html>
