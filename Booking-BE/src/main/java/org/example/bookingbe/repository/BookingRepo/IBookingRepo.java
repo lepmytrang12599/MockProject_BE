@@ -1,14 +1,16 @@
 package org.example.bookingbe.repository.BookingRepo;
 
 import org.example.bookingbe.model.Booking;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface IBookingRepo extends CrudRepository<Booking, Long> {
+public interface IBookingRepo extends JpaRepository<Booking, Long> {
 
     @Query("SELECT COALESCE(SUM(b.totalPrice), 0) FROM Booking b WHERE b.bookingDate BETWEEN :startDate AND :endDate")
     Double getTotalRevenue(LocalDate startDate, LocalDate endDate);
@@ -24,4 +26,8 @@ public interface IBookingRepo extends CrudRepository<Booking, Long> {
 
     @Query("SELECT r.roomType, COUNT(b.id) FROM Booking b JOIN b.room r GROUP BY r.roomType")
     List<Object[]> getBookingRatesByRoomType();
+    
+   @Query("SELECT b FROM Booking b WHERE b.bookingDate BETWEEN :start AND :end")
+List<Booking> findBookingsByDateRange(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
+
 }

@@ -12,4 +12,5 @@ public interface IBookingService {
     Optional<Booking> getBookingById(Long id);
     void deleteBooking(Long id);
     List<Booking> findBookingsByDateRange(LocalDateTime start, LocalDateTime end);
+    
 }
