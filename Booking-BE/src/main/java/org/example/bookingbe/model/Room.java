@@ -8,25 +8,34 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "price")
+
+    @Column(name = "price", nullable = false)
     private Double price;
+
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
+
     @ManyToOne
-    @JoinColumn(name = "room_type_id")
+    @JoinColumn(name = "room_type_id", nullable = false)
     private RoomType roomType;
+
     @ManyToOne
-    @JoinColumn(name = "hotel_id")
+    @JoinColumn(name = "hotel_id", nullable = false)
     private Hotel hotel;
+
+    @ManyToOne
+    @JoinColumn(name = "status_id", nullable = false)
+    private Status status;
 
     public Room() {}
 
-    public Room(Long id, Double price, String description, RoomType roomType, Hotel hotel) {
+    public Room(Long id, Double price, String description, RoomType roomType, Hotel hotel, Status status) {
         this.id = id;
         this.price = price;
         this.description = description;
         this.roomType = roomType;
         this.hotel = hotel;
+        this.status = status;
     }
 
     public Long getId() {
@@ -61,13 +70,19 @@ public class Room {
         this.roomType = roomType;
     }
 
-
-
     public Hotel getHotel() {
         return hotel;
     }
 
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

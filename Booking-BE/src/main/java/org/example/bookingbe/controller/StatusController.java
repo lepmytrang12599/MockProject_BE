@@ -6,4 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/api/statusroom")
 public class StatusController {
+  public enum RoomStatus {
+    AVAILABLE, 
+    BOOKED, 
+    UNDER_MAINTENANCE
+}
 }

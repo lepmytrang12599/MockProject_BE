@@ -2,7 +2,10 @@ package org.example.bookingbe.model;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
+import org.example.bookingbe.controller.StatusController.RoomStatus;
 
 @Entity
 @Table(name = "booking")
@@ -16,6 +19,11 @@ public class Booking {
     private LocalDateTime checkOut;
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
+    @Column(name = "price", precision = 10, scale = 2, nullable = false)
+    private BigDecimal price;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)    
+    private RoomStatus status;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
